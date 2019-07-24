@@ -6,26 +6,14 @@ import workopolis.utility.CleanText;
 
 public class JobInfoExtractor {
 
-	private final String HEADER = "<!DOCTYPE html><html><head><title></title></head><body>";
-	private final String FOOTER = "</body></html>";
 
 	public JobDescription extract(Document page, JobInfoSelectors jobInfoSelectors) {
-
-		final String jobDes = getJobDescription(page, jobInfoSelectors.getJobDes());
 		final String companyName = getCompanyName(page, jobInfoSelectors.getCompany());
 		final String jobTitle = getTitle(page, jobInfoSelectors.getJobTitle());
 		final String city = getCity(page, jobInfoSelectors.getCity());
 		final String jobDesInHtmlFormat = getJobDescriptionInHtmlFormat(page, jobInfoSelectors.getJobDes());
 	
-		return new JobDescription(jobTitle, companyName, city, jobDes,
-				jobDesInHtmlFormat);
-	}
-
-	private String getJobDescription(Document doc, String selector) {
-		Element htmlJobDes = doc.selectFirst(selector);
-		String jobDes = htmlJobDes.text();
-		jobDes = CleanText.clean(jobDes);
-		return jobDes;
+		return new JobDescription(jobTitle, companyName, city, jobDesInHtmlFormat);
 	}
 
 	private String getCompanyName(Document doc, String selector) {
@@ -50,6 +38,6 @@ public class JobInfoExtractor {
 
 	private String getJobDescriptionInHtmlFormat(Document doc, String selector) {
 		Element jobDes = doc.selectFirst(selector);
-		return HEADER + jobDes.toString() + FOOTER;
+		return  jobDes.toString();
 	}
 }
