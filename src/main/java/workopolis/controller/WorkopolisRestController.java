@@ -23,6 +23,7 @@ public class WorkopolisRestController {
     }
 
     @GetMapping("/fetch")
+    @CrossOrigin
     @ResponseBody
     public JobsList getJobs(@RequestParam List<String> titles,
                             @RequestParam List<String> cities,
